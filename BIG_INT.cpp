@@ -124,12 +124,12 @@ string difference(string s1,string s2)
 		swap(s2,s1);
 		if(s1.length()==s2.length())
 		{
-			/*for (int i=0; i<s1.length(); i++) 
-               if (s1[i] < s2[i]) 
-                { 
-                	swap(s1,s2); 
-                    break;
-               }*/
+			//for (int i=0; i<s1.length(); i++) 
+             //  if (s1[i] < s2[i]) 
+              //  { 
+                //	swap(s1,s2); 
+               //     break;
+               //}
 			if(s1<s2){
 				swap(s1,s2);
 
@@ -197,7 +197,7 @@ string diff(string s1,string s2){
 	{
        // + + wala case
 		int sign;
-		if(s1.length() > s2.length() || (s1.length()==s2.length() && s1 > s2))
+		if(s1.length() > s2.length() || (s1.length()==s2.length() && s1 >= s2))
   		sign=0;// means +ve
   		else
   		sign=1;	// means -ve
@@ -229,10 +229,67 @@ string diff(string s1,string s2){
 
 	}
 
-
 	
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*string diffMod(string number1, string number2)
+{
+	string sub = (number1.length()>number2.length())? number1 : number2;
+	int differenceInLength = abs( (int)(number1.size() - number2.size()) );
+
+	if(number1.size() > number2.size())	
+		number2.insert(0, differenceInLength, '0');
+
+	else
+		number1.insert(0, differenceInLength, '0');
+
+	for(int i=number1.length()-1; i>=0; --i)
+	{
+		if(number1[i] < number2[i])
+		{
+			number1[i] += 10;
+			number1[i-1]--;
+		}
+		sub[i] = ((number1[i]-'0')-(number2[i]-'0')) + '0';
+	}
+
+	while(sub[0]=='0' && sub.length()!=1) // erase leading zeros
+		sub.erase(0,1);
+
+	return sub;
+}*/
+
+/*string diffMod(string a,string b){
+	string z=diff(a,b);
+	if(z[0]=='-')
+		z.erase(a.begin());
+	return z;
+}
+*/
+
+
+/*string sub(string &str1 , string &str2)
+{
+    string s1 = str1 , s2 = str2 ;
+    string result;  
+    s2.insert(s2.size(),s1.size() - s2.size(),'0') ;
+    int borrow = 0, i = 0 , diff = 0;
+    for(int i =0  ; i < s1.size() ; i++)
+    {
+        diff = s1[i] - s2[i] - borrow ; 
+        if(diff < 0)
+        {
+            borrow = 1 ;
+            diff += 10;
+        }
+        else borrow = 0 ;
+        result.insert(i,1,diff + 48) ; 
+    }
+    reverse(result.begin(), result.end()) ; 
+    
+    return result; 
+}*/
 ////////////////////////////////////////////////// DIVISION ////////////////////////////////////////////////////////////////////////////
 
 string div(string s1,string s2){
@@ -247,7 +304,7 @@ string div(string s1,string s2){
  while(s1.length() > s2.length() || (s1.length()==s2.length() && s1 >s2) )
  {
  	
-  s3=difference(s1,s2);
+  s3=diff(s1,s2);
   
   s1=s3;
  // cout << s1 << endl;
@@ -262,14 +319,45 @@ string div(string s1,string s2){
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GCD  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-string gcd(string a,string b){
-      if(b.empty()){
+/*string gcd(string a,string b){
+      if(b=="0" ){
        return a;
       }
+      else if((a.compare(b))==0)
+      	  return a;
+      else if(a=="1" || b=="1")
+      	 return to_string(1);
       else{
-      	gcd(b,difference(a,mul(div(a,b),b)));
+      	cout << "a:"<<a << endl;
+      	cout << "b:"<<b << endl;
+      	gcd(b,diff(a,mul(div(a,b),b)));
       }
+      //return a;
+}*/
+/*
+string gcd(string a, string b) 
+{ 
+   string num1,num2;
+   while(1){
+   	num1=a;
+   	num2=b;
+   	if((a.compare(b))==0)
+   		return a;
+   	if(a=="0" || b== "0" )
+   		return to_string(0);
+   
+   else{
+   	
+   	
+num1=diffMod(a,b);
+cout << num1 << endl;
+num2=b;
+cout << num2 << endl;
+   }
 }
+} */
+
+
 
 
 //.................................................... MAIN() .............................................................................
@@ -303,10 +391,10 @@ int main(){
           s3=div(str1,str2);
           cout << s3 << endl;
           break; 
-     case 5:
+     /*case 5:
           s3=gcd(str1,str2);
           cout << s3 << endl;
-          break;
+          break;*/
 
       }
   }
